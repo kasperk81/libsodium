@@ -120,6 +120,14 @@ jobs:
           name: build-linux-arm64
           path: zig-out/lib/libsodium.so
 
+      - name: build-linux-riscv64
+        run: |
+          rm -fr zig-out .zig-cache; zig build -Doptimize=ReleaseFast -Dtarget=riscv64-linux-gnu.2.27
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-linux-riscv64
+          path: zig-out/lib/libsodium.so
+
       - name: build-linux-musl-x64
         run: |
           rm -fr zig-out .zig-cache; zig build -Doptimize=ReleaseFast -Dtarget=x86_64-linux-musl
@@ -142,6 +150,14 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-linux-musl-arm64
+          path: zig-out/lib/libsodium.so
+
+      - name: build-linux-musl-riscv64
+        run: |
+          rm -fr zig-out .zig-cache; zig build -Doptimize=ReleaseFast -Dtarget=riscv64-linux-musl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-linux-musl-riscv64
           path: zig-out/lib/libsodium.so
 
   build-apple:
@@ -219,6 +235,14 @@ jobs:
         with:
           name: build-linux-musl-arm64
           path: .libsodium-pack/runtimes/linux-musl-arm64/native/
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-linux-riscv64
+          path: .libsodium-pack/runtimes/linux-riscv64/native/
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-linux-musl-riscv64
+          path: .libsodium-pack/runtimes/linux-musl-riscv64/native/
 
       - uses: actions/download-artifact@v4
         with:
