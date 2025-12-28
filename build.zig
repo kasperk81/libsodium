@@ -145,7 +145,7 @@ pub fn build(b: *std.Build) !void {
     const io = threaded.io();
 
     const root_path = b.pathFromRoot(".");
-    var cwd = try Dir.openDirAbsolute(io, root_path, .{});
+    var cwd = try std.fs.openDirAbsolute(io, root_path, .{});
     defer cwd.close(io);
 
     const src_path = "src/libsodium";
